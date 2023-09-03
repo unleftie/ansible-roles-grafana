@@ -55,7 +55,8 @@
     - name: Gather currently installed grafana-agent version from the host
       ansible.builtin.shell:
         cmd: |
-          {{ grafana_agent_install_dir }}/{{ grafana_agent_binary }} --version | \
+          set -o pipefail | \
+            {{ grafana_agent_install_dir }}/{{ grafana_agent_binary }} --version | \
             head -n 1 | \
             awk '{ print $3; }' | \
             cut -d 'v' -f 2

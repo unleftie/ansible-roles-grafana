@@ -4,7 +4,8 @@
   block:
     - name: Get the latest published Grafana Agent     # noqa command-instead-of-module
       ansible.builtin.shell: |
-        curl -s https://api.github.com/repos/{{ _grafana_agent_github_org }}/{{ _grafana_agent_github_repo }}/releases/latest \
+        set -o pipefail \
+        | curl -s https://api.github.com/repos/{{ _grafana_agent_github_org }}/{{ _grafana_agent_github_repo }}/releases/latest \
           | grep -m 1 tag_name \
           | cut -d '"' -f 4 | cut -c 2-
       changed_when: false

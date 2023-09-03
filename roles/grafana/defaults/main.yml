@@ -22,7 +22,7 @@ grafana_instance: "{{ ansible_fqdn | default(ansible_host) | default(inventory_h
 grafana_logs_dir: "/var/log/grafana"
 grafana_data_dir: "/var/lib/grafana"
 
-grafana_address: "0.0.0.0"
+grafana_address: "127.0.0.1"
 grafana_port: 3000
 # To enable the use of ports below 1024 for unprivileged processes linux needs to set CAP_NET_BIND_SERVICE.
 # This has some security implications, and should be a conscious choice.
@@ -50,8 +50,8 @@ grafana_server:
 # Variables correspond to ones in grafana.ini configuration file
 # Security
 grafana_security:
-  admin_user: admin
-  admin_password: ""
+  admin_user: "{{ vault_grafana_admin_user | default('admin', true) }}"
+  admin_password: "{{ vault_grafana_admin_password | default('admin', true) }}"
 #  secret_key: ""
 #  login_remember_days: 7
 #  cookie_username: grafana_user
@@ -212,8 +212,9 @@ grafana_date_formats: {}
 
 #######
 # Plugins from https://grafana.com/plugins
-grafana_plugins: []
-#  - raintank-worldping-app
+grafana_plugins:
+  - grafana-piechart-panel
+  - grafana-clock-panel
 
 # Dashboards from https://grafana.com/dashboards
 grafana_dashboards: []
@@ -227,7 +228,7 @@ grafana_dashboards: []
 #    revision_id: '1'
 #    datasource: 'Prometheus'
 
-grafana_dashboards_dir: "dashboards"
+grafana_dashboards_dir: "files/dashboards"
 
 # Alert notification channels to configure
 grafana_alert_notifications: []
@@ -239,19 +240,27 @@ grafana_alert_notifications: []
 #      addresses: "example@example.com"
 
 # Datasources to configure
-grafana_datasources: []
-#  - name: "Prometheus"
-#    type: "prometheus"
-#    access: "proxy"
-#    url: "http://prometheus.mydomain"
-#    basicAuth: true
-#    basicAuthUser: "admin"
-#    basicAuthPassword: "password"
-#    isDefault: true
-#    jsonData:
-#      tlsAuth: false
-#      tlsAuthWithCACert: false
-#      tlsSkipVerify: true
+grafana_datasources:
+  - name: "Prometheus"
+    type: "prometheus"
+    access: "proxy"
+    url:
+      "http://{{ prometheus_web_listen_address | default('127.0.0.1:9090', true) }}\
+      {{ prometheus_web_external_url | default('/prometheus', true) }}"
+    isDefault: true
+    readOnly: false
+    editable: true
+  - name: "Alertmanager"
+    type: "alertmanager"
+    access: "proxy"
+    url:
+      "http://{{ alertmanager_web_listen_address | default('127.0.0.1:9093', true) }}\
+      {{ alertmanager_web_external_path | default('/', true) }}"
+    isDefault: false
+    readOnly: false
+    editable: true
+    jsonData:
+      implementation: "prometheus"
 
 # API keys to configure
 grafana_api_keys: []

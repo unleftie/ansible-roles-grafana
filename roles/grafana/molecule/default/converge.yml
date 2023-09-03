@@ -1,10 +1,7 @@
 ---
-- name: "Run role"
+- name: Converge
   hosts: all
-  any_errors_fatal: true
-  roles:
-    - grafana.grafana.grafana
-  vars:
-    grafana_security:
-      admin_user: "admin"
-      admin_password: "password"
+  become: true
+  tasks:
+    - include_role:
+        name: "{{ lookup('env', 'ROLE_NAME') | default('grafana', true) }}"

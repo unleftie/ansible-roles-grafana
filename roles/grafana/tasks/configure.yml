@@ -81,7 +81,7 @@
   ansible.builtin.file:
     path: /etc/systemd/system/grafana-server.service.d
     state: directory
-    mode: '0755'
+    mode: "0755"
   when:
     - "grafana_port | int <= 1024"
     - "grafana_cap_net_bind_service"
@@ -90,6 +90,7 @@
   ansible.builtin.blockinfile:
     path: /etc/systemd/system/grafana-server.service.d/overrides.conf
     create: true
+    mode: "644"
     block: |
       [Service]
       AmbientCapabilities=CAP_NET_BIND_SERVICE

@@ -34,7 +34,7 @@
     backup: false
     owner: root
     group: grafana
-    mode: 0640
+    mode: "640"
   notify: restart_grafana
   become: true
   when: "grafana_use_provisioning"

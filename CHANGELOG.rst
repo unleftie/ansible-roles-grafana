@@ -5,6 +5,140 @@ Grafana.Grafana Release Notes
 .. contents:: Topics
 
 
+v2.2.4
+======
+
+Release Summary
+---------------
+
+Grafana and Agent Role bug fixes and security updates
+
+Minor Changes
+-------------
+
+- Bump cryptography from 41.0.4 to 41.0.6 by @dependabot in https://github.com/grafana/grafana-ansible-collection/pull/126
+- Drop curl check by @v-zhuravlev in https://github.com/grafana/grafana-ansible-collection/pull/120
+- Fix check mode for grafana role by @Boschung-Mecatronic-AG-Infrastructure in https://github.com/grafana/grafana-ansible-collection/pull/125
+- Fix check mode in Grafana Agent by @AmandaCameron in https://github.com/grafana/grafana-ansible-collection/pull/124
+- Update tags in README by @ishanjainn in https://github.com/grafana/grafana-ansible-collection/pull/121
+
+v2.2.3
+======
+
+Release Summary
+---------------
+
+Remove dependency on local-fs.target from Grafana Agent role
+
+Minor Changes
+-------------
+
+- Remove dependency on local-fs.target from Grafana Agent role
+
+v2.2.2
+======
+
+Release Summary
+---------------
+
+Grafana Role bug fixes and security updates
+
+Minor Changes
+-------------
+
+- Bump cryptography from 41.0.3 to 41.0.4
+- Create missing notification directory in Grafana Role
+- Remove check_mode from create local directory task in Grafana Role
+
+v2.2.1
+======
+
+Release Summary
+---------------
+
+Allow alert resource provisioning in Grafana Role
+
+Minor Changes
+-------------
+
+- Allow alert resource provisioning in Grafana Role
+
+v2.2.0
+======
+
+Release Summary
+---------------
+
+Grafana Agent Role Updates
+
+Minor Changes
+-------------
+
+- Use 'ansible_system' env variable to detect os typ in Grafana Agent Role
+- hange grafana Agent Wal and Positions Directory in Grafana Agent Role
+
+v2.1.9
+======
+
+Release Summary
+---------------
+
+Security Updates and Grafana Agent Version failure fixes
+
+Minor Changes
+-------------
+
+- Add check for Curl and failure step if Agent Version is not retrieved
+- Bump cryptography from 39.0.2 to 41.0.3
+- Bump semver from 5.7.1 to 5.7.2
+- Bump word-wrap from 1.2.3 to 1.2.5
+- Create local dashboard directory in check mode
+- Update CI Testing
+- Update Cloud Stack Module failures
+
+v2.1.8
+======
+
+Release Summary
+---------------
+
+Fix grafana dashboard import in Grafana Role
+
+Minor Changes
+-------------
+
+- Fix grafana dashboard import in Grafana Role
+
+v2.1.7
+======
+
+Release Summary
+---------------
+
+YAML Fixes
+
+Minor Changes
+-------------
+
+- YAML Fixes
+
+v2.1.6
+======
+
+Release Summary
+---------------
+
+Grafana and Grafana Agent role updates
+
+Minor Changes
+-------------
+
+- Add overrides.conf with CAP_NET_BIND_SERVICE for grafana-server unit
+- Fix Grafana Dashboard Import for Grafana Role
+- Make grafana_agent Idempotent
+- Provisioning errors in YAML
+- Use new standard to configure Grafana APT source for Grafana Role
+
 v2.1.5
 ======
 

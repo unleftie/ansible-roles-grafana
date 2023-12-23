@@ -13,14 +13,7 @@ _download_cpu_arch_map:
 _grafana_agent_cpu_arch: "{{ _download_cpu_arch_map[ansible_architecture] | default(ansible_architecture) }}"
 
 # set the go os family
-_download_os_family_map:
-  alpine: linux
-  debian: linux
-  redhat: linux
-  darwin: darwin
-  freebsd: freebsd
-
-_grafana_agent_os_family: "{{ _download_os_family_map[ansible_os_family | lower] | default(ansible_os_family | lower) }}"
+_grafana_agent_os_family: "{{ ansible_system | lower }}"
 
 # set the name of the archive file to download
 _grafana_agent_download_archive_file: "grafana-agent-{{ _grafana_agent_os_family }}-{{ _grafana_agent_cpu_arch }}.zip"
@@ -31,3 +24,6 @@ _grafana_agent_download_binary_file: "grafana-agent-{{ _grafana_agent_os_family 
 # systemd info
 _grafana_agent_systemd_dir: /lib/systemd/system/
 _grafana_agent_systemd_unit: grafana-agent.service
+
+# Server http address, used in self health check after start
+_grafana_agent_healthcheck_endpoint: "http://{{ grafana_agent_flags_extra['server.http.address'] if grafana_agent_flags_extra['server.http.address'] is defined else '127.0.0.1:12345' }}/-/ready"

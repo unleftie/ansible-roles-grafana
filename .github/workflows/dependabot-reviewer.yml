@@ -4,6 +4,7 @@ on: pull_request_target
 permissions:
   pull-requests: write
   contents: write
+  actions: write
 
 jobs:
   dependabot:
@@ -12,7 +13,7 @@ jobs:
     if: ${{ github.event.pull_request.user.login == 'dependabot[bot]' }}
     steps:
       - name: Harden Runner
-        uses: step-security/harden-runner@1b05615854632b887b69ae1be8cbefe72d3ae423 # v2.6.0
+        uses: step-security/harden-runner@1b05615854632b887b69ae1be8cbefe72d3ae423 # v2.6.1
         with:
           disable-sudo: true
           egress-policy: audit
@@ -23,7 +24,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Dependency Review
-        uses: actions/dependency-review-action@6c5ccdad469c9f8a2996bfecaec55a631a347034 # v3.1.0
+        uses: actions/dependency-review-action@01bc87099ba56df1e897b6874784491ea6309bc4 # v3.1.4
 
       - name: Dependabot metadata
         id: dependabot-metadata

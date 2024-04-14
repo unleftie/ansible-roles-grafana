@@ -1,0 +1,4 @@
+service:
+  {{ otel_collector_service_name }}:
+    enabled: true
+    running: true

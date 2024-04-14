@@ -9,7 +9,7 @@
     name: "{{ otel_collector_service_user }}"
     group: "{{ otel_collector_service_group }}"
     system: true
-    create_home: false  # Appropriate for a system user, usually doesn't need a home directory
+    create_home: false # Appropriate for a system user, usually doesn't need a home directory
   become: true
 
 - name: Determine the architecture for OpenTelemetry Collector binary
@@ -27,7 +27,7 @@
   ansible.builtin.get_url:
     url: "{{ otel_collector_binary_url }}"
     dest: "/tmp/otelcol-{{ otel_collector_type }}-{{ otel_collector_version }}.tar.gz"
-    mode: '0755'
+    mode: "0755"
   become: true
   register: download_result
 
@@ -42,7 +42,7 @@
   ansible.builtin.file:
     path: "{{ otel_collector_installation_dir }}"
     state: directory
-    mode: '0755'
+    mode: "0755"
     owner: "{{ otel_collector_service_user }}"
     group: "{{ otel_collector_service_group }}"
   become: true

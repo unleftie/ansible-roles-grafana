@@ -4,7 +4,7 @@
     state: directory
     owner: "{{ otel_collector_service_user }}"
     group: "{{ otel_collector_service_group }}"
-    mode: '0755'
+    mode: "0755"
   become: true
 
 - name: Deploy OpenTelemetry Collector configuration file
@@ -13,6 +13,6 @@
     dest: "{{ otel_collector_config_dir }}/{{ otel_collector_config_file }}"
     owner: "{{ otel_collector_service_user }}"
     group: "{{ otel_collector_service_group }}"
-    mode: '0644'
+    mode: "0644"
   notify: Restart OpenTelemetry Collector
   become: true

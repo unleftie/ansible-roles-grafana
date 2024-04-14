@@ -1,0 +1,4 @@
+service:
+  {{ service_name }}:
+    enabled: true
+    running: true

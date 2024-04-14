@@ -15,7 +15,7 @@
       "type": "grafana",
       "id": "grafana",
       "name": "Grafana",
-      "version": "10.3.1"
+      "version": "10.4.2"
     },
     {
       "type": "panel",
@@ -142,8 +142,7 @@
               }
             ]
           },
-          "unit": "s",
-          "unitScale": true
+          "unit": "s"
         },
         "overrides": []
       },
@@ -154,7 +153,6 @@
         "y": 0
       },
       "id": 24,
-      "links": [],
       "options": {
         "legend": {
           "calcs": [
@@ -177,15 +175,19 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "editorMode": "code",
+          "disableTextWrap": false,
+          "editorMode": "builder",
           "exemplar": true,
-          "expr": "probe_duration_seconds{service=~'$service', job=~'$job'}",
+          "expr": "probe_duration_seconds{service=~\"$service\", job=~\"$job\"}",
           "format": "time_series",
+          "fullMetaSearch": false,
+          "includeNullMetadata": true,
           "instant": false,
           "interval": "",
           "intervalFactor": 1,
           "legendFormat": "{{ service }}",
-          "refId": "A"
+          "refId": "A",
+          "useBackend": false
         }
       ],
       "type": "timeseries"
@@ -228,8 +230,7 @@
               }
             ]
           },
-          "unit": "short",
-          "unitScale": true
+          "unit": "short"
         },
         "overrides": [
           {
@@ -318,7 +319,6 @@
         "y": 8
       },
       "id": 2414,
-      "links": [],
       "options": {
         "cellHeight": "sm",
         "footer": {
@@ -333,7 +333,7 @@
         "frameIndex": 0,
         "showHeader": true
       },
-      "pluginVersion": "10.3.1",
+      "pluginVersion": "10.4.2",
       "repeatDirection": "h",
       "targets": [
         {
@@ -341,7 +341,7 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "editorMode": "code",
+          "editorMode": "builder",
           "exemplar": true,
           "expr": "probe_success{service=~\"$service\", job=~\"$job\"}",
           "format": "table",
@@ -421,8 +421,7 @@
           },
           "mappings": [],
           "noValue": "null",
-          "unit": "none",
-          "unitScale": true
+          "unit": "none"
         },
         "overrides": [
           {
@@ -474,7 +473,7 @@
             "percent"
           ]
         },
-        "pieType": "pie",
+        "pieType": "donut",
         "reduceOptions": {
           "calcs": [
             "stdDev"
@@ -493,18 +492,21 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "editorMode": "code",
+          "disableTextWrap": false,
+          "editorMode": "builder",
           "exemplar": false,
-          "expr": "count_values('value', probe_success{service=~'$service', job=~'$job'})",
+          "expr": "count_values(\"value\", probe_success{service=~\"$service\", job=~\"$job\"})",
           "format": "table",
+          "fullMetaSearch": false,
+          "includeNullMetadata": true,
           "instant": true,
           "interval": "",
           "legendFormat": "__auto",
           "range": false,
-          "refId": "A"
+          "refId": "A",
+          "useBackend": false
         }
       ],
-      "transformations": [],
       "type": "piechart"
     }
   ],
@@ -522,37 +524,12 @@
           "type": "prometheus",
           "uid": "${DS_PROMETHEUS}"
         },
-        "definition": "label_values(probe_success,exporter)",
-        "hide": 2,
-        "includeAll": true,
-        "multi": true,
-        "name": "blackbox",
-        "options": [],
-        "query": {
-          "query": "label_values(probe_success,exporter)",
-          "refId": "Prometheus-blackbox-Variable-Query"
-        },
-        "refresh": 1,
-        "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
-        "tagValuesQuery": "",
-        "tagsQuery": "",
-        "type": "query",
-        "useTags": false
-      },
-      {
-        "current": {},
-        "datasource": {
-          "type": "prometheus",
-          "uid": "${DS_PROMETHEUS}"
-        },
         "definition": "label_values(job)",
         "description": "",
         "hide": 0,
-        "includeAll": false,
+        "includeAll": true,
         "label": "Job",
-        "multi": false,
+        "multi": true,
         "name": "job",
         "options": [],
         "query": {
@@ -571,16 +548,17 @@
           "type": "prometheus",
           "uid": "${DS_PROMETHEUS}"
         },
-        "definition": "label_values(up{job=~'$job'},env)",
+        "definition": "label_values(up{job=~\"$job\"},env)",
         "hide": 0,
         "includeAll": true,
-        "label": "env",
+        "label": "Environment",
         "multi": true,
         "name": "env",
         "options": [],
         "query": {
-          "query": "label_values(up{job=~'$job'},env)",
-          "refId": "StandardVariableQuery"
+          "qryType": 1,
+          "query": "label_values(up{job=~\"$job\"},env)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 1,
         "regex": "",
@@ -597,16 +575,17 @@
           "type": "prometheus",
           "uid": "${DS_PROMETHEUS}"
         },
-        "definition": "label_values(up{job=~'$job',env=~'$env'},service)",
+        "definition": "label_values(up{job=~\"$job\", env=~\"$env\"},service)",
         "hide": 0,
         "includeAll": true,
-        "label": "service",
+        "label": "Service",
         "multi": true,
         "name": "service",
         "options": [],
         "query": {
-          "query": "label_values(up{job=~'$job',env=~'$env'},service)",
-          "refId": "StandardVariableQuery"
+          "qryType": 1,
+          "query": "label_values(up{job=~\"$job\", env=~\"$env\"},service)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 1,
         "regex": "",
@@ -623,42 +602,17 @@
           "type": "prometheus",
           "uid": "${DS_PROMETHEUS}"
         },
-        "definition": "label_values(up{job=~'$job',env=~'$env',service=~'$service'},gametype)",
+        "definition": "label_values(up{job=~\"$job\", env=~\"$env\", service=~\"$service\"},instance)",
         "hide": 2,
         "includeAll": true,
-        "label": "gametype",
-        "multi": true,
-        "name": "gametype",
-        "options": [],
-        "query": {
-          "query": "label_values(up{job=~'$job',env=~'$env',service=~'$service'},gametype)",
-          "refId": "Prometheus-gametype-Variable-Query"
-        },
-        "refresh": 1,
-        "regex": "",
-        "skipUrlSync": false,
-        "sort": 1,
-        "tagValuesQuery": "",
-        "tagsQuery": "",
-        "type": "query",
-        "useTags": false
-      },
-      {
-        "current": {},
-        "datasource": {
-          "type": "prometheus",
-          "uid": "${DS_PROMETHEUS}"
-        },
-        "definition": "label_values(up{job=~'$job',env=~'$env',service=~'$service',gametype=~'$gametype'},instance)",
-        "hide": 2,
-        "includeAll": true,
-        "label": "targets",
+        "label": "Targets",
         "multi": true,
         "name": "targets",
         "options": [],
         "query": {
-          "query": "label_values(up{job=~'$job',env=~'$env',service=~'$service',gametype=~'$gametype'},instance)",
-          "refId": "Prometheus-targets-Variable-Query"
+          "qryType": 1,
+          "query": "label_values(up{job=~\"$job\", env=~\"$env\", service=~\"$service\"},instance)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 1,
         "regex": "",
@@ -668,96 +622,6 @@
         "tagsQuery": "",
         "type": "query",
         "useTags": false
-      },
-      {
-        "auto": true,
-        "auto_count": 10,
-        "auto_min": "10s",
-        "current": {
-          "selected": false,
-          "text": "auto",
-          "value": "$__auto_interval_interval"
-        },
-        "hide": 2,
-        "label": "interval",
-        "name": "interval",
-        "options": [
-          {
-            "selected": true,
-            "text": "auto",
-            "value": "$__auto_interval_interval"
-          },
-          {
-            "selected": false,
-            "text": "5s",
-            "value": "5s"
-          },
-          {
-            "selected": false,
-            "text": "10s",
-            "value": "10s"
-          },
-          {
-            "selected": false,
-            "text": "30s",
-            "value": "30s"
-          },
-          {
-            "selected": false,
-            "text": "1m",
-            "value": "1m"
-          },
-          {
-            "selected": false,
-            "text": "10m",
-            "value": "10m"
-          },
-          {
-            "selected": false,
-            "text": "30m",
-            "value": "30m"
-          },
-          {
-            "selected": false,
-            "text": "1h",
-            "value": "1h"
-          },
-          {
-            "selected": false,
-            "text": "6h",
-            "value": "6h"
-          },
-          {
-            "selected": false,
-            "text": "12h",
-            "value": "12h"
-          },
-          {
-            "selected": false,
-            "text": "1d",
-            "value": "1d"
-          },
-          {
-            "selected": false,
-            "text": "7d",
-            "value": "7d"
-          },
-          {
-            "selected": false,
-            "text": "14d",
-            "value": "14d"
-          },
-          {
-            "selected": false,
-            "text": "30d",
-            "value": "30d"
-          }
-        ],
-        "query": "5s,10s,30s,1m,10m,30m,1h,6h,12h,1d,7d,14d,30d",
-        "queryValue": "",
-        "refresh": 2,
-        "skipUrlSync": false,
-        "type": "interval"
       },
       {
         "current": {
@@ -806,7 +670,7 @@
   },
   "timezone": "",
   "title": "healthcheck [ICMP]",
-  "uid": "ApnOonfGz",
-  "version": 4,
+  "uid": "adipn3vjwxds0b",
+  "version": 11,
   "weekStart": ""
 }

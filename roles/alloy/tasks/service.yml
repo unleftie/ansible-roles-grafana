@@ -8,12 +8,12 @@
 
 - name: Reload systemd daemon to pick up changes
   ansible.builtin.systemd:
-    daemon_reload: yes
+    daemon_reload: true
   become: true
 
 - name: Ensure alloy service is enabled and running
   ansible.builtin.service:
     name: "{{ service_name }}"
-    enabled: yes
+    enabled: true
     state: started
   become: true

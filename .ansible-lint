@@ -25,6 +25,7 @@ warn_list:
   - package-latest
   - yaml[line-length]
   - jinja[invalid]
+  - no-handler
 
 exclude_paths:
   - molecule/default/tests/*.yml

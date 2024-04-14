@@ -51,6 +51,6 @@
   ansible.builtin.unarchive:
     src: "/tmp/otelcol-{{ otel_collector_type }}-{{ otel_collector_version }}.tar.gz"
     dest: "{{ otel_collector_installation_dir }}"
-    remote_src: yes
+    remote_src: true
   become: true
   register: extract_result

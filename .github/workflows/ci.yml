@@ -23,9 +23,10 @@ on:
   push:
     paths-ignore: ["**.md", "LICENSE", ".github/dependabot.yml"]
     branches: ["master", "main"]
-  pull_request:
+  pull_request_target:
     paths-ignore: ["**.md", "LICENSE", ".github/dependabot.yml"]
     branches: ["master", "main"]
+    types: [opened, reopened]
 
 env:
   ROLES_PATH: "roles/"

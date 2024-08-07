@@ -113,4 +113,4 @@
         dest: "/var/log/dummy_promtail_acl/dummy_promtail_acl.log"
         owner: "promtail"
         group: "root"
-        mode: 0600
+        mode: "0600"

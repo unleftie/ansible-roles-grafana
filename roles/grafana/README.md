@@ -50,13 +50,15 @@ All variables which can be overridden are stored in [defaults/main.yml](defaults
 | `grafana_session` | {} | [session](http://docs.grafana.org/installation/configuration/#session) management configuration section |
 | `grafana_analytics` | {} | Google [analytics](http://docs.grafana.org/installation/configuration/#analytics) configuration section |
 | `grafana_smtp` | {} | [smtp](http://docs.grafana.org/installation/configuration/#smtp) configuration section |
-| `grafana_alerting` | {} | [alerting](http://docs.grafana.org/installation/configuration/#alerting) configuration section |
+| `grafana_alerting` | { execute_alerts: true } | [alerting](http://docs.grafana.org/installation/configuration/#alerting) configuration section, require Grafana v10 and below |
+| `grafana_unified_alerting` | { enabled: true } | [unified_alerting](https://grafana.com/docs/grafana/latest/setup-grafana/configure-grafana/#unified_alerting) configuration section, require Grafana v11+ |
 | `grafana_log` | {} | [log](http://docs.grafana.org/installation/configuration/#log) configuration section |
 | `grafana_metrics` | {} | [metrics](http://docs.grafana.org/installation/configuration/#metrics) configuration section |
 | `grafana_tracing` | {} | [tracing](http://docs.grafana.org/installation/configuration/#tracing) configuration section |
 | `grafana_snapshots` | {} | [snapshots](http://docs.grafana.org/installation/configuration/#snapshots) configuration section |
 | `grafana_image_storage` | {} | [image storage](http://docs.grafana.org/installation/configuration/#external-image-storage) configuration section |
 | `grafana_date_formats` | {} | [date formats](http://docs.grafana.org/installation/configuration/#date_formats) configuration section |
+| `grafana_feature_toggles` | {} | [feature toggles](http://docs.grafana.org/installation/configuration/#feature_toggles) configuration section |
 | `grafana_dashboards` | [] | List of dashboards which should be imported |
 | `grafana_dashboards_dir` | "dashboards" | Path to a local directory containing dashboards files in `json` format |
 | `grafana_datasources` | [] | List of datasources which should be configured |

@@ -17,7 +17,7 @@
     dest: "{{ _grafana_agent_systemd_dir }}/{{ _grafana_agent_systemd_unit }}"
     owner: root
     group: root
-    mode: 0644
+    mode: "0644"
   notify: "restart grafana-agent"
 
 - name: Create the Service Environment file
@@ -26,7 +26,7 @@
     dest: "{{ grafana_agent_config_dir }}/{{ grafana_agent_env_file }}"
     owner: root
     group: "{{ grafana_agent_user_group }}"
-    mode: 0640
+    mode: "0640"
   notify: "restart grafana-agent"
 
 - name: Create Grafana Agent config
@@ -36,7 +36,7 @@
     force: true
     owner: root
     group: "{{ grafana_agent_user_group }}"
-    mode: 0640
+    mode: "0640"
   notify: "restart grafana-agent"
   when: grafana_agent_provisioned_config_file | length == 0
 
@@ -46,6 +46,6 @@
     dest: "{{ grafana_agent_config_dir }}/{{ grafana_agent_config_filename }}"
     owner: root
     group: "{{ grafana_agent_user_group }}"
-    mode: 0640
+    mode: "0640"
   notify: "restart grafana-agent"
   when: grafana_agent_provisioned_config_file | length > 0

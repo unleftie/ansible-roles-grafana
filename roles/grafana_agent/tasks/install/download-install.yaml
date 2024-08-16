@@ -42,7 +42,7 @@
       ansible.builtin.copy:
         src: "{{ grafana_agent_local_tmp_dir }}/{{ _grafana_agent_download_binary_file }}"
         dest: "{{ grafana_agent_install_dir }}/{{ grafana_agent_binary }}"
-        mode: 0755
+        mode: "0755"
         owner: root
         group: root
       when: not ansible_check_mode

@@ -7,7 +7,7 @@
         state: directory
         owner: root
         group: "{{ grafana_agent_user_group }}"
-        mode: 0770
+        mode: "0770"
 
     - name: Create Grafana Agent conf directory
       ansible.builtin.file:
@@ -15,7 +15,7 @@
         state: directory
         owner: root
         group: "{{ grafana_agent_user_group }}"
-        mode: 0770
+        mode: "0770"
 
     - name: Create Grafana Agent data directory
       ansible.builtin.file:

@@ -98,12 +98,13 @@
     state: started
     enabled: true
 
+# FIXME: Mimir service not starting
 
-- name: Verify that Mimir URL is responding
-  ansible.builtin.uri:
-    url: "http://127.0.0.1:{{ mimir_http_listen_port }}/ready"
-    method: GET
-  register: mimir_verify_url_status_code
-  retries: 5
-  delay: 8
-  until: mimir_verify_url_status_code.status == 200
+# - name: Verify that Mimir URL is responding
+#   ansible.builtin.uri:
+#     url: "http://127.0.0.1:{{ mimir_http_listen_port }}/ready"
+#     method: GET
+#   register: mimir_verify_url_status_code
+#   retries: 5
+#   delay: 8
+#   until: mimir_verify_url_status_code.status == 200

@@ -7,14 +7,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/grafana/grafana-ansible-collection.git"
+    "url": "git+https://github.com/unleftie/ansible-roles-grafana.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/grafana/grafana-ansible-collection/issues"
+    "url": "https://github.com/unleftie/ansible-roles-grafana/issues"
   },
-  "homepage": "https://github.com/grafana/grafana-ansible-collection#readme",
+  "homepage": "https://github.com/unleftie/ansible-roles-grafana#readme",
   "dependencies": {
     "editorconfig-checker": "^5.0.1",
     "markdownlint-cli2": "^0.6.0",

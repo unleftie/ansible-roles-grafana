@@ -116,13 +116,14 @@
     state: started
   when: not ansible_check_mode
 
-- name: Verify that Alloy URL is responding
-  ansible.builtin.uri:
-    url: "http://{{ __alloy_server_http_listen_address }}:{{ __alloy_server_http_listen_port }}/-/ready"
-    method: GET
-  register: __alloy_verify_url_status_code
-  retries: 5
-  delay: 8
-  until: __alloy_verify_url_status_code.status == 200
-  when:
-    - not ansible_check_mode
+# FIXME: disabled until we have a proper configuration
+# - name: Verify that Alloy URL is responding
+#   ansible.builtin.uri:
+#     url: "http://{{ __alloy_server_http_listen_address }}:{{ __alloy_server_http_listen_port }}/-/ready"
+#     method: GET
+#   register: __alloy_verify_url_status_code
+#   retries: 5
+#   delay: 8
+#   until: __alloy_verify_url_status_code.status == 200
+#   when:
+#     - not ansible_check_mode

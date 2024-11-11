@@ -19,14 +19,8 @@ alloy_systemd_override: {}
 #   [Service]
 #   User=root
 
-alloy_config: {}
-# alloy_config: |
-#   prometheus.scrape "default" {
-#       targets = [{"__address__" = "127.0.0.1:12345"}]
-#       forward_to = [prometheus.remote_write.prom.receiver]
-#   }
-#   prometheus.remote_write "prom" {
-#     endpoint {
-#         url = "http://mimir:9009/api/v1/push"
-#     }
-#   }
+alloy_config: |
+  prometheus.scrape "default" {
+      targets = [{"__address__" = "127.0.0.1:12345"}]
+      forward_to = [prometheus.remote_write.prom.receiver]
+  }

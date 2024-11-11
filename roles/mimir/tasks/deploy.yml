@@ -89,16 +89,15 @@
   notify:
     - Restart mimir
 
-- name: Ensure restart has completed
-  ansible.builtin.meta: flush_handlers
+# FIXME: disabled until we have a proper configuration
+# - name: Ensure restart has completed
+#   ansible.builtin.meta: flush_handlers
 
-- name: Ensure that Mimir is started
-  ansible.builtin.systemd:
-    name: mimir.service
-    state: started
-    enabled: true
-
-# FIXME: Mimir service not starting
+# - name: Ensure that Mimir is started
+#   ansible.builtin.systemd:
+#     name: mimir.service
+#     state: started
+#     enabled: true
 
 # - name: Verify that Mimir URL is responding
 #   ansible.builtin.uri:

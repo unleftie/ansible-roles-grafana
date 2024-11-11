@@ -89,21 +89,20 @@
   notify:
     - Restart mimir
 
-# FIXME: disabled until we have a proper configuration
-# - name: Ensure restart has completed
-#   ansible.builtin.meta: flush_handlers
+- name: Ensure restart has completed
+  ansible.builtin.meta: flush_handlers
 
-# - name: Ensure that Mimir is started
-#   ansible.builtin.systemd:
-#     name: mimir.service
-#     state: started
-#     enabled: true
+- name: Ensure that Mimir is started
+  ansible.builtin.systemd:
+    name: mimir.service
+    state: started
+    enabled: true
 
-# - name: Verify that Mimir URL is responding
-#   ansible.builtin.uri:
-#     url: "http://127.0.0.1:{{ mimir_http_listen_port }}/ready"
-#     method: GET
-#   register: mimir_verify_url_status_code
-#   retries: 5
-#   delay: 8
-#   until: mimir_verify_url_status_code.status == 200
+- name: Verify that Mimir URL is responding
+  ansible.builtin.uri:
+    url: "http://127.0.0.1:{{ mimir_http_listen_port }}/ready"
+    method: GET
+  register: mimir_verify_url_status_code
+  retries: 5
+  delay: 8
+  until: mimir_verify_url_status_code.status == 200

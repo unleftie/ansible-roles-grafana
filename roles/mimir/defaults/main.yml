@@ -18,16 +18,16 @@ arch_mapping:
   i386: i386
   ppc64le: ppc64le
 
-mimir_ruler:
-  rule_path: "{{ mimir_working_path }}/ruler"
-  alertmanager_url: "http://127.0.0.1:{{ mimir_http_listen_port }}/alertmanager"
-  ring:
-    heartbeat_period: 5s
-    heartbeat_timeout: 10s
+mimir_ruler: {}
+  # rule_path: "{{ mimir_working_path }}/ruler"
+  # alertmanager_url: "http://127.0.0.1:{{ mimir_http_listen_port }}/alertmanager"
+  # ring:
+  #   heartbeat_period: 5s
+  #   heartbeat_timeout: 10s
 
-mimir_alertmanager:
-  data_dir: "{{ mimir_working_path }}/alertmanager"
-  external_url: "http://localhost:{{ mimir_http_listen_port }}/alertmanager"
+mimir_alertmanager: {}
+  # data_dir: "{{ mimir_working_path }}/alertmanager"
+  # external_url: "http://localhost:{{ mimir_http_listen_port }}/alertmanager"
 
 mimir_server:
   http_listen_port: "{{ mimir_http_listen_port }}"

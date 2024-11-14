@@ -1,3 +1,20 @@
+---
+service:
+  alloy.service:
+    enabled: true
+    running: true
+process:
+  alloy:
+    running: true
 command:
-  echo:
+  version:
     exit-status: 0
+    exec: "alloy --version"
+    stdout: ["go version"]
+file:
+  /etc/alloy/config.alloy:
+    exists: true
+    mode: "0644"
+    owner: root
+    group: root
+    filetype: file

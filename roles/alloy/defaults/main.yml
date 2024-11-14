@@ -6,9 +6,9 @@ alloy_expose_port: false
 alloy_download_url_rpm: "https://github.com/grafana/alloy/releases/download/v{{ alloy_version }}/alloy-{{ alloy_version }}-1.{{ __alloy_arch }}.rpm"
 alloy_download_url_deb: "https://github.com/grafana/alloy/releases/download/v{{ alloy_version }}/alloy-{{ alloy_version }}-1.{{ __alloy_arch }}.deb"
 
-alloy_user_groups: []
-# alloy_user_groups:
-#   - "systemd-journal"
+alloy_user_groups:
+  - "adm"
+  - "systemd-journal"
 
 alloy_env_file_vars: {}
 # alloy_env_file_vars:
@@ -19,8 +19,54 @@ alloy_systemd_override: {}
 #   [Service]
 #   User=root
 
+# https://grafana.com/docs/alloy/latest/reference/components/loki/loki.source.journal/
 alloy_config: |
-  prometheus.scrape "default" {
-      targets = [{"__address__" = "127.0.0.1:12345"}]
-      forward_to = [prometheus.remote_write.prom.receiver]
+  loki.write "default" {
+    endpoint {
+      url = "http://{{ vault_alloy_loki_endpoint | default('127.0.0.1:3100', true) }}/loki/api/v1/push"
+    }
+  }
+
+  loki.relabel "journal" {
+    forward_to = []
+
+    rule {
+      source_labels = ["__journal__systemd_unit"]
+      regex         = "(grafana|loki).service"
+      action        = "drop"
+    }
+
+    rule {
+      source_labels = ["__journal__systemd_unit"]
+      target_label  = "unit"
+    }
+
+    rule {
+      source_labels = ["__journal__hostname"]
+      target_label  = "hostname"
+    }
+
+    rule {
+      source_labels = ["__journal__hostname"]
+      target_label  = "instance"
+    }
+
+    rule {
+      source_labels = ["__journal_priority_keyword"]
+      target_label  = "level"
+    }
+
+    rule {
+      source_labels = ["__journal_syslog_identifier"]
+      target_label  = "syslog_identifier"
+    }
+  }
+
+  loki.source.journal "read"  {
+    forward_to    = [loki.write.default.receiver]
+    relabel_rules = loki.relabel.journal.rules
+    labels        = {
+      component = "loki.source.journal",
+      exporter  = "alloy",
+    }
   }

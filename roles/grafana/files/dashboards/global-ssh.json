@@ -19,7 +19,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 19,
+  "id": 22,
   "links": [],
   "panels": [
     {
@@ -848,7 +848,7 @@
         ]
       },
       "gridPos": {
-        "h": 19,
+        "h": 11,
         "w": 24,
         "x": 0,
         "y": 4
@@ -1208,7 +1208,7 @@
         "h": 10,
         "w": 24,
         "x": 0,
-        "y": 23
+        "y": 15
       },
       "id": 9,
       "options": {
@@ -1396,48 +1396,6 @@
         }
       ],
       "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "loki",
-        "uid": "${datasource}"
-      },
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 22,
-        "w": 24,
-        "x": 0,
-        "y": 33
-      },
-      "id": 11,
-      "options": {
-        "dedupStrategy": "none",
-        "enableLogDetails": true,
-        "prettifyLogMessage": false,
-        "showCommonLabels": false,
-        "showLabels": false,
-        "showTime": false,
-        "sortOrder": "Descending",
-        "wrapLogMessage": false
-      },
-      "pluginVersion": "11.3.0+security-01",
-      "targets": [
-        {
-          "datasource": {
-            "type": "loki",
-            "uid": "P8E80F9AEF21F6940"
-          },
-          "editorMode": "code",
-          "expr": "{$label_name=~\"$label_value\", job=~\"$job\", instance=~\"$instance\", syslog_identifier=\"sshd\"} ",
-          "queryType": "range",
-          "refId": "A"
-        }
-      ],
-      "title": "Global - SSH Recent Logs",
-      "type": "logs"
     }
   ],
   "preload": false,
@@ -1466,8 +1424,8 @@
       },
       {
         "current": {
-          "text": "hostname",
-          "value": "hostname"
+          "text": "exporter",
+          "value": "exporter"
         },
         "datasource": {
           "type": "loki",
@@ -1490,8 +1448,8 @@
       },
       {
         "current": {
-          "text": "monitoring",
-          "value": "monitoring"
+          "text": "alloy",
+          "value": "alloy"
         },
         "datasource": {
           "type": "loki",
@@ -1570,13 +1528,13 @@
     ]
   },
   "time": {
-    "from": "now-15m",
+    "from": "now-24h",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "browser",
   "title": "Global SSH",
   "uid": "dduzuipfsqnun7ke",
-  "version": 2,
+  "version": 3,
   "weekStart": ""
 }

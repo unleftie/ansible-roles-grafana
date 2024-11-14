@@ -1017,8 +1017,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           }
@@ -1143,8 +1142,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           }
@@ -1273,8 +1271,8 @@
       },
       {
         "current": {
-          "text": "component",
-          "value": "component"
+          "text": "exporter",
+          "value": "exporter"
         },
         "datasource": {
           "type": "loki",
@@ -1292,8 +1290,8 @@
       },
       {
         "current": {
-          "text": "loki.source.journal",
-          "value": "loki.source.journal"
+          "text": "alloy",
+          "value": "alloy"
         },
         "datasource": {
           "type": "loki",
@@ -1338,8 +1336,8 @@
       {
         "allValue": ".*",
         "current": {
-          "text": "",
-          "value": ""
+          "text": "main",
+          "value": "main"
         },
         "datasource": {
           "type": "loki",
@@ -1363,13 +1361,13 @@
     ]
   },
   "time": {
-    "from": "now-15m",
+    "from": "now-24h",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "SSH",
   "uid": "OMEuTffqf23Vk",
-  "version": 4,
+  "version": 5,
   "weekStart": ""
 }

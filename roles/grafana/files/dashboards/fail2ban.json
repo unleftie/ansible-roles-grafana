@@ -800,7 +800,10 @@
   "preload": false,
   "refresh": "30s",
   "schemaVersion": 40,
-  "tags": [],
+  "tags": [
+    "ssh",
+    "security"
+  ],
   "templating": {
     "list": [
       {
@@ -825,7 +828,7 @@
         },
         "definition": "f2b_up",
         "description": "Select which instance(s) to show",
-        "includeAll": false,
+        "includeAll": true,
         "label": "Instance",
         "multi": true,
         "name": "instance",
@@ -862,6 +865,6 @@
   "timezone": "",
   "title": "fail2ban",
   "uid": "cTkH9AT7z",
-  "version": 1,
+  "version": 2,
   "weekStart": ""
 }

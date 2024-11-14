@@ -17,7 +17,7 @@ grafana_apt_key: "https://apt.grafana.com/gpg.key"
 grafana_use_provisioning: true
 
 # Should the provisioning be kept synced. If true, previous provisioned objects will be removed if not referenced anymore.
-grafana_provisioning_synced: false
+grafana_provisioning_synced: true
 
 grafana_instance: "{{ ansible_fqdn | default(ansible_host) | default(inventory_hostname) }}"
 
@@ -240,7 +240,6 @@ grafana_feature_toggles: {}
 #######
 # Plugins to install from https://grafana.com/plugins
 grafana_plugins:
-  - grafana-piechart-panel
   - grafana-clock-panel
 
 #######
@@ -257,16 +256,99 @@ grafana_dashboards: []
 grafana_dashboards_dir: "files/dashboards"
 
 # Alert notification channels to configure
+# deprecated in favor of grafana_alert_resources
 grafana_alert_notifications: []
-#  - name: "Email Alert"
-#    type: "email"
-#    uid: channel1
-#    is_default: true
-#    settings:
-#      addresses: "example@example.com"
 
 # Alert resources channels to configure
-grafana_alert_resources: {}
+grafana_alert_resources:
+  contactPoints:
+    - orgId: 1
+      name: Telegram
+      receivers:
+        - uid: channel11
+          type: telegram
+          settings:
+            bottoken: "{{ vault_grafana_telegram_bot_token }}"
+            chatid: "{{ vault_grafana_telegram_chat_id }}"
+            disable_notification: false
+            disable_web_page_preview: false
+            parse_mode: HTML
+            protect_content: false
+            message: '{% raw %}{{ template "telegram.default" .}}{% endraw %}'
+          disableResolveMessage: true
+  templates:
+    - orgID: 1
+      name: telegram_default
+      template: |-
+        {% raw %}{{ define "telegram.default" }}
+        {{ range .Alerts }}
+        {{ if eq .Status "firing" }}🚨 {{ .Status | toUpper }} 🚨 {{ else }}✅ {{ .Status | toUpper }} ✅ {{ end }}
+        ALERTNAME: {{ .Labels.alertname }}
+        SUMMARY: {{ .Annotations.summary }}
+        SERVICE: {{ .Labels.instance }}
+        {{ if eq .Status "firing" }}STARTS AT: {{ .StartsAt.Local }} {{ else }}ENDS AT: {{ .EndsAt.Local }} {{ end }}
+        {{ end }}
+        {{ end }}{% endraw %}
+  groups:
+    - orgId: 1
+      name: SshNewSession
+      folder: ssh
+      interval: 1m
+      rules:
+        - uid: alert1
+          title: SshNewSession
+          condition: B
+          data:
+            - refId: A
+              queryType: instant
+              relativeTimeRange:
+                from: 600
+                to: 0
+              datasourceUid: P8E80F9AEF21F6940
+              model:
+                datasource:
+                  type: loki
+                  uid: P8E80F9AEF21F6940
+                editorMode: code
+                expr: sum by(instance) (count_over_time({exporter="alloy", job="loki.source.journal.read", syslog_identifier="sshd"} |="session opened for" [5m]))
+                hide: false
+                intervalMs: 1000
+                maxDataPoints: 43200
+                queryType: instant
+                refId: A
+            - refId: B
+              datasourceUid: __expr__
+              model:
+                conditions:
+                  - evaluator:
+                      params:
+                        - 0
+                      type: gt
+                    operator:
+                      type: and
+                    query:
+                      params:
+                        - C
+                    reducer:
+                      params: []
+                      type: last
+                    type: query
+                datasource:
+                  type: __expr__
+                  uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: B
+                type: threshold
+          noDataState: OK
+          execErrState: Error
+          for: 0s
+          annotations:
+            summary: A new SSH session was opened
+          isPaused: false
+          notification_settings:
+            receiver: Telegram
 
 # Datasources to configure
 grafana_datasources:

@@ -26,27 +26,32 @@ promtail_server:
 promtail_positions:
   filename: "{{ promtail_positions_path }}/positions.yaml"
 
-promtail_clients: []
-# promtail_clients:
-#   - url: http://localhost:3100/loki/api/v1/push
+promtail_clients:
+  - url: http://{{ vault_promtail_loki_endpoint | default('127.0.0.1:3100', true) }}/loki/api/v1/push
 
-promtail_scrape_configs: []
-# promtail_scrape_configs:
-#   - job_name: system
-#     static_configs:
-#       - targets:
-#           - localhost
-#         labels:
-#           job: messages
-#           instance: "{{ ansible_fqdn }}"
-#           __path__: /var/log/messages
-#       - targets:
-#           - localhost
-#         labels:
-#           job: nginx
-#           instance: "{{ ansible_fqdn }}"
-#           __path__: /var/log/nginx/*.log
-
+# https://grafana.com/docs/loki/latest/send-data/promtail/configuration
+promtail_scrape_configs:
+  - job_name: journal
+    journal:
+      path: /var/log/journal
+      max_age: 7h
+      labels:
+        job: systemd-journal
+    relabel_configs:
+      - source_labels: ["__journal__systemd_unit"]
+        target_label: unit
+      - source_labels: ["__journal_priority_keyword"]
+        target_label: level
+      - source_labels: ["__journal_syslog_identifier"]
+        target_label: syslog_identifier
+  # - job_name: system
+  #   static_configs:
+  #     - targets:
+  #         - localhost
+  #       labels:
+  #         job: alternatives
+  #         instance: "{{ ansible_fqdn }}"
+  #         __path__: /var/log/alternatives.log
 # not set by default
 # promtail_limits_config:
 # promtail_target_config:

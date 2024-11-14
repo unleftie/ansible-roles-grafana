@@ -189,8 +189,7 @@ grafana_alerting:
 
 # Grafana logging configuration
 grafana_log:
-# mode: 'console file'
-# level: info
+  level: error
 
 # Internal grafana metrics system
 grafana_metrics: {}
@@ -251,15 +250,9 @@ grafana_plugins_ops: {}
 
 # Dashboards from https://grafana.com/dashboards
 grafana_dashboards: []
-#  - dashboard_id: '4271'
-#    revision_id: '3'
-#    datasource: 'Prometheus'
-#  - dashboard_id: '1860'
-#    revision_id: '4'
-#    datasource: 'Prometheus'
-#  - dashboard_id: '358'
-#    revision_id: '1'
-#    datasource: 'Prometheus'
+# - dashboard_id: "17514"
+#   revision_id: "3"
+#   datasource: "Prometheus"
 
 grafana_dashboards_dir: "files/dashboards"
 
@@ -297,6 +290,13 @@ grafana_datasources:
     editable: true
     jsonData:
       implementation: "prometheus"
+  - name: "Loki"
+    type: "loki"
+    access: "proxy"
+    url: "http://{{ loki_http_listen_address | default('127.0.0.1', true) }}:{{ loki_http_listen_port | default('3100', true) }}"
+    isDefault: false
+    readOnly: false
+    editable: true
 
 # API keys to configure
 grafana_api_keys: []

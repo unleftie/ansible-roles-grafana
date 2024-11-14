@@ -31,7 +31,7 @@
   become: true
   register: download_result
 
-- name: Remove existing OpenTelemetry Collector installation directory
+- name: Remove existing OpenTelemetry Collector installation directory # noqa: no-handler
   ansible.builtin.file:
     path: "{{ otel_collector_installation_dir }}"
     state: absent

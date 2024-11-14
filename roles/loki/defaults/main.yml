@@ -19,6 +19,7 @@ loki_server:
   http_listen_address: "{{ loki_http_listen_address }}"
   http_listen_port: "{{ loki_http_listen_port }}"
   grpc_listen_port: 9096
+  log_level: error
 
 loki_common:
   instance_addr: 127.0.0.1
@@ -60,11 +61,10 @@ loki_ruler:
       store: inmemory
   enable_api: true
   enable_alertmanager_v2: true
-  alertmanager_url: http://localhost:9093
+  alertmanager_url: http://127.0.0.1:9093
 
 loki_analytics:
   reporting_enabled: false
-
 # Alerting Rules Variables
 # loki_ruler_alerts:
 #   - name: Logs.Nextcloud

@@ -1,5 +1,7 @@
 ---
 - name: Converge
   hosts: all
-  roles:
-    - role: grafana.grafana.loki
+  become: true
+  tasks:
+    - include_role:
+        name: "{{ lookup('env', 'ROLE_NAME') | default('loki', true) }}"

@@ -25,7 +25,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 20,
+  "id": 21,
   "links": [],
   "panels": [
     {
@@ -327,60 +327,26 @@
         "type": "loki",
         "uid": "P8E80F9AEF21F6940"
       },
-      "description": "",
       "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [
-            {
-              "options": {
-                "match": "null",
-                "result": {
-                  "index": 0,
-                  "text": "0"
-                }
-              },
-              "type": "special"
-            }
-          ],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "orange",
-                "value": null
-              }
-            ]
-          },
-          "unit": "short"
-        },
+        "defaults": {},
         "overrides": []
       },
       "gridPos": {
-        "h": 4,
-        "w": 3,
+        "h": 20,
+        "w": 12,
         "x": 12,
         "y": 1
       },
-      "id": 6,
+      "id": 9,
       "options": {
-        "colorMode": "background",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "percentChangeColorMode": "standard",
-        "reduceOptions": {
-          "calcs": [
-            "sum"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showPercentChange": false,
-        "textMode": "auto",
-        "wideLayout": true
+        "dedupStrategy": "signature",
+        "enableLogDetails": true,
+        "prettifyLogMessage": false,
+        "showCommonLabels": false,
+        "showLabels": false,
+        "showTime": false,
+        "sortOrder": "Descending",
+        "wrapLogMessage": false
       },
       "pluginVersion": "11.3.0+security-01",
       "targets": [
@@ -390,89 +356,13 @@
             "uid": "P8E80F9AEF21F6940"
           },
           "editorMode": "code",
-          "expr": "count_over_time({$label_name=~\"$label_value\", job=~\"$job\", instance=~\"$instance\", syslog_identifier=\"sshd\"} | __error__=\"\" [$__interval])",
+          "expr": "{$label_name=~\"$label_value\", job=~\"$job\", instance=~\"$instance\", syslog_identifier=\"sshd\"} ",
           "queryType": "range",
           "refId": "A"
         }
       ],
-      "title": "SSH Log Lines",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "loki",
-        "uid": "P8E80F9AEF21F6940"
-      },
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [
-            {
-              "options": {
-                "match": "null",
-                "result": {
-                  "index": 0,
-                  "text": "0"
-                }
-              },
-              "type": "special"
-            }
-          ],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "orange",
-                "value": null
-              }
-            ]
-          },
-          "unit": "decbytes"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 3,
-        "x": 15,
-        "y": 1
-      },
-      "id": 7,
-      "options": {
-        "colorMode": "background",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "percentChangeColorMode": "standard",
-        "reduceOptions": {
-          "calcs": [
-            "sum"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showPercentChange": false,
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "pluginVersion": "11.3.0+security-01",
-      "targets": [
-        {
-          "datasource": {
-            "type": "loki",
-            "uid": "P8E80F9AEF21F6940"
-          },
-          "editorMode": "code",
-          "expr": "bytes_over_time({$label_name=~\"$label_value\", job=~\"$job\", instance=~\"$instance\", syslog_identifier=\"sshd\"} | __error__=\"\" [$__interval])",
-          "queryType": "range",
-          "refId": "A"
-        }
-      ],
-      "title": "SSH Log in bytes",
-      "type": "stat"
+      "title": "SSH Recent Log",
+      "type": "logs"
     },
     {
       "datasource": {
@@ -645,48 +535,6 @@
         }
       ],
       "type": "piechart"
-    },
-    {
-      "datasource": {
-        "type": "loki",
-        "uid": "P8E80F9AEF21F6940"
-      },
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 16,
-        "w": 12,
-        "x": 12,
-        "y": 5
-      },
-      "id": 9,
-      "options": {
-        "dedupStrategy": "signature",
-        "enableLogDetails": true,
-        "prettifyLogMessage": false,
-        "showCommonLabels": false,
-        "showLabels": false,
-        "showTime": false,
-        "sortOrder": "Descending",
-        "wrapLogMessage": false
-      },
-      "pluginVersion": "11.3.0+security-01",
-      "targets": [
-        {
-          "datasource": {
-            "type": "loki",
-            "uid": "P8E80F9AEF21F6940"
-          },
-          "editorMode": "code",
-          "expr": "{$label_name=~\"$label_value\", job=~\"$job\", instance=~\"$instance\", syslog_identifier=\"sshd\"} ",
-          "queryType": "range",
-          "refId": "A"
-        }
-      ],
-      "title": "SSH Recent Log",
-      "type": "logs"
     },
     {
       "datasource": {
@@ -1169,7 +1017,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               }
             ]
           }
@@ -1195,7 +1044,7 @@
         },
         "showHeader": true
       },
-      "pluginVersion": "11.1.4",
+      "pluginVersion": "11.3.0+security-01",
       "targets": [
         {
           "datasource": {
@@ -1294,7 +1143,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               }
             ]
           }
@@ -1320,7 +1170,7 @@
         },
         "showHeader": true
       },
-      "pluginVersion": "11.1.4",
+      "pluginVersion": "11.3.0+security-01",
       "targets": [
         {
           "datasource": {
@@ -1520,6 +1370,6 @@
   "timezone": "",
   "title": "SSH",
   "uid": "OMEuTffqf23Vk",
-  "version": 2,
+  "version": 4,
   "weekStart": ""
 }

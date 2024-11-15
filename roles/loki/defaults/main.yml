@@ -72,7 +72,7 @@ loki_ruler_alerts:
     rules:
       - alert: SshNewSession
         expr: |
-          count_over_time({exporter="alloy", job="loki.source.journal.read", syslog_identifier="sshd"} |="session opened for" [5m]) > 0
+          count_over_time({exporter="alloy", job="loki.source.journal.read", syslog_identifier="sshd"} |="session opened for" != "sftp" [5m]) > 0
         for: 0m
         labels:
           severity: error

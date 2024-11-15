@@ -65,28 +65,20 @@ loki_ruler:
 
 loki_analytics:
   reporting_enabled: false
+
 # Alerting Rules Variables
-# loki_ruler_alerts:
-#   - name: Logs.Nextcloud
-#     rules:
-#     - alert: NextcloudLoginFailed
-#       expr: |
-#         count by (filename,env,job) (count_over_time({job=~"nextcloud"} | json | message=~"Login failed.*" [10m])) > 4
-#       for: 0m
-#       labels:
-#         severity: critical
-#       annotations:
-#         summary: "{% raw %}On {{ $labels.job }} in log {{ $labels.filename }} failed login detected.{% endraw %}"
-#   - name: Logs.sshd
-#     rules:
-#     - alert: SshLoginFailed
-#       expr: |
-#         count_over_time({job=~"secure"} |="sshd[" |~": Failed|: Invalid|: Connection closed by authenticating user" | __error__="" [15m]) > 15
-#       for: 0m
-#       labels:
-#         severity: critical
-#       annotations:
-#         summary: "{% raw %}SSH authentication failure (instance {{ $labels.instance }}).{% endraw %}"
+loki_ruler_alerts:
+  - name: Logs.sshd
+    rules:
+      - alert: SshNewSession
+        expr: |
+          count_over_time({exporter="alloy", job="loki.source.journal.read", syslog_identifier="sshd"} |="session opened for" [5m]) > 0
+        for: 0m
+        labels:
+          severity: error
+          env: prod
+        annotations:
+          summary: "A new SSH session was opened"
 
 # Additional Config Variables for /etc/loki/config.yml
 # loki_distributor:

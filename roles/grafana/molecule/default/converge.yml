@@ -5,6 +5,3 @@
   tasks:
     - include_role:
         name: "{{ lookup('env', 'ROLE_NAME') | default('grafana', true) }}"
-      vars:
-        vault_grafana_telegram_bot_token: "1111111111"
-        vault_grafana_telegram_chat_id: "-1111111111"

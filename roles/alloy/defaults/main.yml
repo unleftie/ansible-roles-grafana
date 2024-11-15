@@ -52,6 +52,11 @@ alloy_config: |
     }
 
     rule {
+      source_labels = ["__journal__hostname"]
+      target_label  = "service"
+    }
+
+    rule {
       source_labels = ["__journal_priority_keyword"]
       target_label  = "level"
     }

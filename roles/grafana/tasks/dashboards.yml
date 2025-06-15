@@ -20,7 +20,7 @@
       ansible.builtin.uri:
         url: "https://grafana.com/api/dashboards/{{ item.dashboard_id }}"
         method: GET
-        return_content: yes
+        return_content: true
       register: __dashboard_info
       loop: "{{ grafana_dashboards }}"
       when: item.dashboard_url is not defined
@@ -38,7 +38,7 @@
       ansible.builtin.get_url:
         url: "{{ item.dashboard_url if item.dashboard_url is defined else
           ('https://grafana.com/api/dashboards/' ~ item.dashboard_id ~
-           '/revisions/' ~ item.revision_id | default(1) ~ '/download') }}"
+          '/revisions/' ~ item.revision_id | default(1) ~ '/download') }}"
         dest: "{{ __tmp_dashboards.path }}/{{ item.dashboard_id ~ '.json'
           if item.dashboard_id is defined else item.dashboard_url | basename}}"
         mode: "0644"

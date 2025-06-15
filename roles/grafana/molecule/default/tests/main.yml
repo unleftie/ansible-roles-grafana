@@ -16,7 +16,7 @@ group:
   grafana:
     exists: true
 http:
-  http://{{ grafana_address }}:{{ grafana_port }}/grafana/login:
+  http://{{ grafana_ini_default.server.http_addr }}:{{ grafana_ini_default.server.http_port }}/grafana/login:
     status: 200
     allow-insecure: false
     no-follow-redirects: false

@@ -102,3 +102,5 @@ loki_limits_config:
 # loki_runtime_config:
 # loki_operational_config:
 # loki_tracing:
+# loki_bloom_build:
+# loki_bloom_gateway:

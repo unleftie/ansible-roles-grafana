@@ -63,9 +63,9 @@ grafana_agent_local_binary_file: ""
 # dictionary of additional command-line flags, run grafana-agent --help for a complete list
 # Docs: https://grafana.com/docs/agent/latest/static/configuration/flags/
 grafana_agent_flags_extra:
-  config.expand-env: 'true'
-  config.enable-read-api: 'false'
-  server.register-instrumentation: 'true'
+  config.expand-env: "true"
+  config.enable-read-api: "false"
+  server.register-instrumentation: "true"
   server.http.address: 127.0.0.1:12345
   server.grpc.address: 127.0.0.1:12346
 

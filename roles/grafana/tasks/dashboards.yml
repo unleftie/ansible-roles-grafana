@@ -177,7 +177,7 @@
       become: true
       register: __dashboards_copied_custom # Not used, placeholder only
       notify: "provisioned dashboards changed"
-      when: 
+      when:
         - not ansible_check_mode
         - __grafana_custom_dashboards_dir.stat.exists | bool
 
@@ -193,6 +193,6 @@
         state: absent
       loop: "{{ __dashboards_present_list | difference(__dashboards_copied_list) }}"
       become: true
-      when: 
+      when:
         - grafana_provisioning_synced | bool
         - not ansible_check_mode

@@ -5,6 +5,7 @@
   no_log: "{{ 'false' if lookup('env', 'CI') else 'true' }}"
   tags:
     - always
+
 - name: "Gather variables for each operating system"
   ansible.builtin.include_vars: "{{ distrovars }}"
   vars:

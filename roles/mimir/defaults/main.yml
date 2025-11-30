@@ -3,10 +3,12 @@
 mimir_version: "latest"
 mimir_uninstall: false
 __mimir_arch: "{{ arch_mapping[ansible_facts['architecture']] | default('amd64') }}"
-mimir_download_url_rpm: "https://github.com/grafana/mimir/releases/download/{{ mimir_version }}/{{ mimir_version }}_{{ __mimir_arch }}.rpm"
-mimir_download_url_deb: "https://github.com/grafana/mimir/releases/download/{{ mimir_version }}/{{ mimir_version }}_{{ __mimir_arch }}.deb"
+mimir_download_url_rpm: "https://github.com/grafana/mimir/releases/download/mimir-{{ mimir_version }}/mimir-{{ mimir_version }}_{{ __mimir_arch }}.rpm"
+mimir_download_url_deb: "https://github.com/grafana/mimir/releases/download/mimir-{{ mimir_version }}/mimir-{{ mimir_version }}_{{ __mimir_arch }}.deb"
 mimir_working_path: "/var/lib/mimir"
 mimir_ruler_alert_path: "{{ mimir_working_path }}/ruler"
+mimir_http_listen_port: 8080
+mimir_http_listen_address: "0.0.0.0"
 
 mimir_http_listen_port: 8080
 
@@ -16,6 +18,10 @@ arch_mapping:
   armv7l: armhf
   i386: i386
   ppc64le: ppc64le
+
+mimir_server:
+  http_listen_port: "{{ mimir_http_listen_port }}"
+  http_listen_address: "{{ mimir_http_listen_address }}"
 
 mimir_ruler:
   {}

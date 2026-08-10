@@ -3,11 +3,15 @@
 [![CI](https://github.com/unleftie/ansible-roles-grafana/actions/workflows/ci.yml/badge.svg)](https://github.com/unleftie/ansible-roles-grafana/actions/workflows/ci.yml)
 [![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/unleftie/ansible-roles-grafana/badge)](https://securityscorecards.dev/viewer/?uri=github.com/unleftie/ansible-roles-grafana)
 
+Thin wrapper role that applies [`grafana.grafana`](https://github.com/grafana/grafana-ansible-collection) roles from the upstream
+[grafana.grafana](https://galaxy.ansible.com/ui/repo/published/grafana/grafana/) collection. Override variables live in [vars/main.yml](vars/main.yml)
+
 ## Compatibility
 
 | Platform | Version |
 | -------- | ------- |
-| debian   | 12      |
+| ubuntu   | 26.04   |
+| debian   | 13      |
 
 ## Dependencies
 
@@ -19,16 +23,19 @@
 
 ```sh
 git clone https://github.com/unleftie/ansible-roles-grafana.git
-cd ansible-roles-grafana/roles/grafana # or any other role
+cd ansible-roles-grafana
+ansible-galaxy install -r requirements.yml
 molecule test
 ```
 
 ## Installation
 
-> Upgradability notice: When upgrading from old version of this role, be aware that some files may be lost.
+```sh
+ansible-galaxy install -r requirements.yml
+```
 
 Example [playbook](main.yml)
 
 ## 📝 License
 
-This project is licensed under the [GNU General Public License](LICENSE).
+This project is licensed under the [MIT](LICENSE).

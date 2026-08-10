@@ -1,8 +1,5 @@
 ---
 collections:
-  - name: https://github.com/ansible-collections/community.general.git
-    type: git
-  - name: https://github.com/ansible-collections/community.grafana.git
-    type: git
-  - name: https://github.com/ansible-collections/ansible.posix.git
-    type: git
+  # https://galaxy.ansible.com/ui/repo/published/grafana/grafana/content/
+  - name: grafana.grafana
+    version: "6.1.0"

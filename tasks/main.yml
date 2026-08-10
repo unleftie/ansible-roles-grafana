@@ -1,4 +1,9 @@
 ---
+- name: Include role vars
+  ansible.builtin.include_vars:
+    dir: "{{ role_path }}/vars"
+    extensions: ["yml", "yaml"]
+
 - name: Apply Grafana Alloy
   ansible.builtin.include_role:
     name: grafana.grafana.alloy

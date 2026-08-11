@@ -11,7 +11,6 @@ Thin wrapper role that applies [`grafana.grafana`](https://github.com/grafana/gr
 | Platform | Version |
 | -------- | ------- |
 | ubuntu   | 26.04   |
-| debian   | 13      |
 
 ## Dependencies
 

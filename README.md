@@ -3,8 +3,8 @@
 [![CI](https://github.com/unleftie/ansible-roles-grafana/actions/workflows/ci.yml/badge.svg)](https://github.com/unleftie/ansible-roles-grafana/actions/workflows/ci.yml)
 [![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/unleftie/ansible-roles-grafana/badge)](https://securityscorecards.dev/viewer/?uri=github.com/unleftie/ansible-roles-grafana)
 
-Thin wrapper role that applies [`grafana.grafana`](https://github.com/grafana/grafana-ansible-collection) roles from the upstream
-[grafana.grafana](https://galaxy.ansible.com/ui/repo/published/grafana/grafana/) collection. Override variables live in [vars/main.yml](vars/main.yml)
+Thin wrapper role that applies [grafana](https://github.com/grafana/grafana-ansible-collection) roles from the upstream
+[grafana.grafana](https://galaxy.ansible.com/ui/repo/published/grafana/grafana/) collection. Override variables live in `vars/` directory, one file per role.
 
 ## Compatibility
 
